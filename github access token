@@ -3,3 +3,25 @@ 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
 
 
 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
+
+
+stage("update buildnumber in manifestfile"){
+			environment{
+				GIT_USER_NAME="tejasirigireddy"
+			        GIT_REPO_NAME="register-app.git"
+			}	
+			steps{
+				withCredentials([string(credentialsId: 'tejasirigireddy', variable: 'GITHUB_TOKEN')]){
+					sh '''
+                                            git config user.mail="tejaswinisy2000@gmail.com"
+					    git config user.name="tejasirigireddy"
+	                                    build_number=${BUILD_NUMBER}
+				            sed -i "s/replacetag/${build_number}/g" manifestfile/deployment.yml
+		                            git add manifestfile/deployment.yml
+			                    git commit -m "updating build number in deployment file"
+		                            git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+			                '''
+					
+				}
+			}
+		}
