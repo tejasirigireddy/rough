@@ -17,7 +17,7 @@ pipeline{
 				git branch:'main', url: 'https://github.com/tejasirigireddy/register-app.git'
 			}
 		}
-		stage("build package"){
+		stage("build packajjjjjjge"){
 			steps{
 				sh 'mvn clean package'
 			}
